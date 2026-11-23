@@ -1,32 +1,50 @@
+
+# Class Pelanggan
 class pelanggan:
-    def __init__(self, idPelanggan, namaPelanggan, no_telepon, daftarPesanan):
-        self.idPelanggan = idPelanggan
-        self.namaPelanggan = namaPelanggan
-        self.no_telepon = no_telepon
-        self.daftarPesanan = daftarPesanan
+    def __init__(self, idPelanggan, namaPelanggan, no_telepon, daftarPesanan=None):
+        self.__idPelanggan = idPelanggan
+        self.__namaPelanggan = namaPelanggan
+        self.__no_telepon = no_telepon
+        self.__daftarPesanan = daftarPesanan if daftarPesanan is not None else []
 
+    # Getter
+    def getidPelanggan(self):
+        return self.__idPelanggan
+
+    def getnamaPelanggan(self):
+        return self.__namaPelanggan
+
+    def getnoTelepon(self):
+        return self.__no_telepon
+
+    # Mengubah data pelanggan
+    def ubahDataPelanggan(self, namaBaru, noTeleponBaru):
+        self.__namaPelanggan = namaBaru
+        self.__no_telepon = noTeleponBaru
+
+    # Memesan paket wisata
     def pesanPaket(self, paketWisata):
-        self.daftarPesanan.append(paketWisata)
+        self.__daftarPesanan.append(paketWisata)
 
+    # Membatalkan pesanan
     def batalkanPesanan(self, paketWisata):
-        if paketWisata in self.daftarPesanan:
-            self.daftarPesanan.remove(paketWisata)
-            print(f"Pesanan paket {paketWisata.getnamaPaket()} berhasil dibatalkan.")
+        if paketWisata in self.__daftarPesanan:
+            self.__daftarPesanan.remove(paketWisata)
+            print("Pesanan berhasil dibatalkan.")
         else:
-            print(f"Pesanan paket {paketWisata.getnamaPaket()} tidak ditemukan.")
+            print("Pesanan tidak ditemukan.")
 
+    # Menampilkan informasi pelanggan
+    def tampilkanInfoPelanggan(self):
+        print(f"ID Pelanggan: {self.__idPelanggan}")
+        print(f"Nama: {self.__namaPelanggan}")
+        print(f"No Telepon: {self.__no_telepon}")
+
+    # Menampilkan pesanan pelanggan
     def tampilkanInfoPesanan(self):
-        if not self.daftarPesanan:
+        if not self.__daftarPesanan:
             print("Tidak ada pesanan yang ditemukan.")
         else:
             print("Daftar Pesanan:")
-            for pesanan in self.daftarPesanan:
+            for pesanan in self.__daftarPesanan:
                 print(f"- {pesanan.getnamaPaket()} (ID: {pesanan.getidPaket()})")
-
-    def tampilkanInfo(self):
-        print(f"ID Pelanggan: {self.idPelanggan}")
-        print(f"Nama: {self.namaPelanggan}")
-        print(f"No Telepon: {self.no_telepon}")
-        print("Daftar Pesanan:")
-        for pesanan in self.daftarPesanan:
-            print(f"- {pesanan.getnamaPaket()} (ID: {pesanan.getidPaket()})")
