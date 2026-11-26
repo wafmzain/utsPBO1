@@ -1,50 +1,67 @@
-
 # Class Pelanggan
-class pelanggan:
-    def __init__(self, idPelanggan, namaPelanggan, no_telepon, daftarPesanan=None):
+# Relasi Asosiasi: Pelanggan memiliki relasi dengan PaketWisata
+class Pelanggan:
+    # Constructor berparameter
+    def __init__(self, idPelanggan, namaPelanggan, noTelepon, daftarPesanan=None):
+        # Enkapsulasi: atribut private
         self.__idPelanggan = idPelanggan
         self.__namaPelanggan = namaPelanggan
-        self.__no_telepon = no_telepon
+        self.__noTelepon = noTelepon
+        # Daftar pesanan menampung objek PaketWisata (Relasi Asosiasi)
         self.__daftarPesanan = daftarPesanan if daftarPesanan is not None else []
 
     # Getter
-    def getidPelanggan(self):
+    def getIdPelanggan(self):
         return self.__idPelanggan
 
-    def getnamaPelanggan(self):
+    def getNamaPelanggan(self):
         return self.__namaPelanggan
 
-    def getnoTelepon(self):
-        return self.__no_telepon
+    def getNoTelepon(self):
+        return self.__noTelepon
 
-    # Mengubah data pelanggan
+    def getDaftarPesanan(self):
+        return self.__daftarPesanan
+
+    # Method untuk mengubah profil pelanggan
     def ubahDataPelanggan(self, namaBaru, noTeleponBaru):
         self.__namaPelanggan = namaBaru
-        self.__no_telepon = noTeleponBaru
+        self.__noTelepon = noTeleponBaru
+        print("Data pelanggan berhasil diperbarui.")
 
-    # Memesan paket wisata
-    def pesanPaket(self, paketWisata):
-        self.__daftarPesanan.append(paketWisata)
-
-    # Membatalkan pesanan
-    def batalkanPesanan(self, paketWisata):
-        if paketWisata in self.__daftarPesanan:
-            self.__daftarPesanan.remove(paketWisata)
-            print("Pesanan berhasil dibatalkan.")
+    # Method memesan paket wisata 
+    def pesanPaket(self, paket):
+        if paket.getKuotaPaket() > 0:
+            if paket.kurangiKuota(1):
+                self.__daftarPesanan.append(paket)
+                print(f"Berhasil! Pelanggan {self.__namaPelanggan} telah memesan {paket.getNamaPaket()}.")
+                return True
         else:
-            print("Pesanan tidak ditemukan.")
+            print(f"Gagal! Kuota paket {paket.getNamaPaket()} sudah habis.")
+            return False
 
-    # Menampilkan informasi pelanggan
+    # Method membatalkan pesanan
+    def batalkanPesanan(self, paket):
+        if paket in self.__daftarPesanan:
+            self.__daftarPesanan.remove(paket)
+            paket.tambahKuota(1)
+            print("Pesanan berhasil dibatalkan dan kuota telah dikembalikan.")
+            return True
+        else:
+            print("Pesanan tidak ditemukan pada riwayat pelanggan ini.")
+            return False
+
+    # Method menampilkan informasi pelanggan
     def tampilkanInfoPelanggan(self):
-        print(f"ID Pelanggan: {self.__idPelanggan}")
-        print(f"Nama: {self.__namaPelanggan}")
-        print(f"No Telepon: {self.__no_telepon}")
+        print(f"ID Pelanggan : {self.__idPelanggan}")
+        print(f"Nama         : {self.__namaPelanggan}")
+        print(f"No. Telepon  : {self.__noTelepon}")
 
-    # Menampilkan pesanan pelanggan
+    # Method menampilkan pesanan pelanggan
     def tampilkanInfoPesanan(self):
         if not self.__daftarPesanan:
-            print("Tidak ada pesanan yang ditemukan.")
+            print("Belum ada pesanan aktif.")
         else:
             print("Daftar Pesanan:")
-            for pesanan in self.__daftarPesanan:
-                print(f"- {pesanan.getnamaPaket()} (ID: {pesanan.getidPaket()})")
+            for i, paket in enumerate(self.__daftarPesanan, 1):
+                print(f"{i}. [ID {paket.getIdPaket()}] {paket.getNamaPaket()} - Rp {paket.getHargaPaket():,.0f}")

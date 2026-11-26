@@ -1,27 +1,42 @@
-#class wisataBudaya
-class WisataBudaya:
-    def __init__(self, namaBudaya, jenisBudaya, kegiatanBudaya):
-        self.nama = namaBudaya
-        self.jenis = jenisBudaya
-        self.kegiatan = kegiatanBudaya
+# Subclass: WisataBudaya
+# Inheritance: Mewarisi class PaketWisata
+from paketWisata import PaketWisata
 
-    def get_namaBudaya(self):
-        return self.nama
+class WisataBudaya(PaketWisata):
+    # Constructor berparameter
+    def __init__(self, idPaket, namaPaket, hargaPaket, durasiPaket, lokasiPaket, kuotaPaket, fasilitasPaket,
+                 namaSitus, jenisBudaya, kegiatanBudaya):
+        # Memanggil constructor superclass
+        super().__init__(idPaket, namaPaket, hargaPaket, durasiPaket, lokasiPaket, kuotaPaket, fasilitasPaket)
+        
+        # Enkapsulasi: atribut private khusus WisataBudaya
+        self.__namaSitus = namaSitus
+        self.__jenisBudaya = jenisBudaya
+        self.__kegiatanBudaya = kegiatanBudaya
+
+    # Getter untuk atribut private
+    def getNamaSitus(self):
+        return self.__namaSitus
 
     def getJenisBudaya(self):
-        return self.jenis
+        return self.__jenisBudaya
 
     def getKegiatanBudaya(self):
-        return self.kegiatan
+        return self.__kegiatanBudaya
 
-    def tampilkanBudaya(self):
-        print(f"Nama Wisata Budaya: {self.nama}")
-        print(f"Jenis Budaya: {self.jenis}")
-        print(f"Kegiatan Budaya: {self.kegiatan}")
+    # Method Overriding: Menampilkan informasi lengkap wisata budaya
+    def tampilkanInfoPaket(self):
+        print("=== PAKET WISATA BUDAYA ===")
+        super().tampilkanInfoPaket()
+        print(f"Nama Situs/Cagar: {self.__namaSitus}")
+        print(f"Jenis Budaya: {self.__jenisBudaya}")
+        print(f"Kegiatan: {self.__kegiatanBudaya}")
 
+    # Method tambahan untuk menampilkan kegiatan budaya
     def tampilkanKegiatan(self):
-        print(f"Kegiatan Budaya: {self.kegiatan}")
+        print(f"Agenda kegiatan budaya: {self.__kegiatanBudaya}")
 
+    # Method tambahan untuk mengubah jenis budaya
     def ubahJenisBudaya(self, jenisBaru):
-        self.jenis = jenisBaru
-        print(f"Jenis budaya berhasil diubah menjadi {self.jenis}.")
+        self.__jenisBudaya = jenisBaru
+        print(f"Jenis budaya berhasil diubah menjadi: {self.__jenisBudaya}")
