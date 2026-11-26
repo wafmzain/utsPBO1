@@ -38,5 +38,13 @@ UTS PBO/
 - **Kelola Pelanggan**: Tambah data pelanggan, tampilkan seluruh pelanggan, cari pelanggan, dan ubah profil pelanggan.
 - **Kelola Pemesanan**: Pemesanan paket wisata oleh pelanggan (otomatis mengurangi kuota paket), tampilkan daftar pemesanan, cek status pemesanan pelanggan, dan pembatalan pesanan (mengembalikan kuota paket).
 
+---
+
+## Coba Langsung (Google Colab)
+
+Untuk mencoba menjalankan aplikasi langsung di browser tanpa perlu *clone* atau install Python di laptop, klik tombol di bawah ini lalu tekan tombol **Play (▶)**:
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/wafmzain/utsPBO1/blob/main/demo.ipynb)
+
 
 
